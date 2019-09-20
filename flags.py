@@ -74,9 +74,3 @@ def count_combinations(combination, n_left):
         for aux in auxs:
             n_combinations += count_combinations(aux, n_left - 1)
     return n_combinations
-    
-
-
-
-    
-

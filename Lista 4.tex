@@ -1,0 +1,94 @@
+\documentclass{article}
+
+\usepackage[portuges]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{aeguill}
+\usepackage{subcaption}
+\usepackage[T1]{fontenc}
+\usepackage{xcolor}
+\usepackage{listings}
+
+\usepackage{algpseudocode,algorithm}
+
+\definecolor{mGreen}{rgb}{0,0.6,0}
+\definecolor{mGray}{rgb}{0.5,0.5,0.5}
+\definecolor{mPurple}{rgb}{0.58,0,0.82}
+\definecolor{backgroundColour}{rgb}{0.95,0.95,0.92}
+
+%\documentclass{minimal}
+\usepackage{mathtools}
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+\lstdefinestyle{Pseudo}{
+    backgroundcolor=\color{backgroundColour},   
+    commentstyle=\color{mGreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{mGray},
+    stringstyle=\color{mPurple},
+    basicstyle=\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+\author{
+	Caio Lorenzetti Martinelli - nº USP 8539899
+}
+\title{Lista 2 - MAC 5711 - $2^o$ Semestre de 2019}
+\begin{document}
+\maketitle
+
+\textbf{Exercício 1:}
+
+\begin{lstlisting}[style=Pseudo]
+ABSort(V, n)
+	primeiroB <- 1
+	para i <- 1 ate n faca
+		se V[i] = 'A'
+			entao 
+				V[i] <-> V[primeiroB]
+				primeiroB <- primeiroB + 1
+	devolve V			
+\end{lstlisting}
+
+O algoritmo inicia a variável \texttt{primeiroB} com 1. Começa a percorrer o vetor: Caso o i-ésimo elemento do vetor seja 'A', troca o elemento com o elemento na posição \texttt{primeiroB} e atualiza a variável \texttt{primeiroB} com a próxima posição no vetor, caso contrário não faz nada, armazenando apenas a posição do primeiro B.
+Caso os primeiros elementos do vetor sejam 'A' o algoritmo fará trocas falsas do i-ésimo elemento com ele mesmo, e irá atualizar a variável \texttt{primeiroB} com a próxima posição até encontrar um elemento 'B'. 
+
+Esse algoritmo percorre apenas uma vez o vetor, então fará a comparação da linha 4 \textit{n} vezes. Sendo assim, é $\Theta(n)$.
+
+Vale colocar que o algoritmo é estável para os elementos 'A' e instável para os elementos 'B'.
+
+\
+
+\textbf{Exercício 5:}
+
+Sendo $v[1..m]$ um \textit{heap}, com $i < j$ e $v[i] < v[j]$, a troca dos elementos $v[i]$ e $v[j]$ mantém as condições de \textit{heap} de que $v[j] \geq v[2i]$, $v[j] \geq v[2i+1]$ e $v[i] \leq v[\floor*{j/2}]$. Ainda vale mencionar que dadas essas condições, o elemento $j$ não será um filho de $i$.
+
+Para que o novo vetor se mantenha um \textit{heap}, é necessário que se mantenham as condições de que $v[j] \leq v[\floor*{i/2}]$, $v[i] \geq v[2j]$ e $v[i] \geq v[2j + 1]$. Dado que eles estão em lados separados da árvore, é bem fácil visualizar que essa troca é possível. Por exemplo, se eles forem filhos de um mesmo pai, e ambos tiverem filhos menores que $i$ (menor dos filhos) essa troca mantém a estrutura de heap.
+
+Já o caso em que $i < j$ e $v[i] > v[j]$, as trocas dos elementos $v[i]$ e $v[j]$ mantém as condições de \textit{heap} de que $v[i] \geq v[2j]$, $v[i] \geq v[2j+1]$ e $v[j] \leq v[\floor*{i/2}]$. Porém nesse caso, ainda é possível que $j$ seja um filho de $i$.
+
+Para que o novo vetor se mantenha um \textit{heap}, é necessário que se mantenham as condições de que $v[i] \leq v[\floor*{j/2}]$, $v[j] \geq v[2i]$ e $v[j] \geq v[2i + 1]$. Nesse caso, é uma condição, dado que $v[i] > v[j]$, que $j$ não seja filho e $i$. Porém também é possível visualizar um caso muito similar ao anterior em que essa troca é possível. Quando ambos $i$ e $j$ forem filhos de um mesmo pai, e ambos tiverem filhos menores que $j$ (menor dos filhos) essa troca mantém a estrutura de heap.
+
+\
+
+\textbf{Exercício 9:}
+
+Dado que a busca binária leva tempo $T(n) = \Theta{(lg(n))}$ no pior caso. Vamos definir essa diferença de consumo de tempo como $D(n) = T(n^2) - T(n)$. E assim temos, substituindo $\Theta{(lg(n))}$ por $lg(n)$:
+$$D(n) = lg(n^2) - lg(n) $$
+$$D(n) = 2lg(n) - lg(n)$$
+$$D(n) = lg(n)$$
+$$D(n) = \Theta{(lg(n))}$$
+
+Já para o melhor caso, tempo $T(n) = \Theta{(1)}$, levando a diferença a zero. Isso nos permite afirmar que a diferença é $O(lg(n))$ no caso geral.
+
+\end{document}
+\grid
